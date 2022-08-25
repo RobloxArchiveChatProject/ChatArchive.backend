@@ -20,17 +20,34 @@ router.post("/createGroup", json_parser, function (req, res) {
 			uuid: uuid,
 		})
 	);
-	let list = JSON.parse(
-		fs.readFileSync("./src/data/filelist.json", {
+	{
+		let item = JSON.parse(
+			fs.readFileSync("./src/data/filelist.json", {
+				encoding: "utf-8",
+				flag: "r",
+			})
+		);
+		item.push(uuid + ".json");
+		fs.writeFileSync("./src/data/filelist.json", JSON.stringify(list), {
 			encoding: "utf-8",
-			flag: "r",
-		})
-	);
-	list.push(uuid + ".json");
-	fs.writeFileSync("./src/data/filelist.json", JSON.stringify(list), {
-		encoding: "utf-8",
-		flag: "w",
-	});
+			flag: "w",
+		});
+	}
+	{
+		let item = JSON.parse(
+			fs.readFileSync("./src/data/gamelist.json", {
+				encoding: "utf-8",
+				flag: "r",
+			})
+		);
+		if (item[req.body.game.toString()] == undefined)
+			item[req.body.game.toString()] = [];
+		item[req.body.game.toString()].push(uuid + ".json");
+		fs.writeFileSync("./src/data/filelist.json", JSON.stringify(list), {
+			encoding: "utf-8",
+			flag: "w",
+		});
+	}
 	fs.writeFileSync("./src/data/" + uuid + ".json", JSON.stringify(req.body), {
 		encoding: "utf-8",
 		flag: "w",
