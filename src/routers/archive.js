@@ -28,7 +28,7 @@ router.post("/createGroup", json_parser, function (req, res) {
 			})
 		);
 		item.push(uuid + ".json");
-		fs.writeFileSync("./src/data/filelist.json", JSON.stringify(list), {
+		fs.writeFileSync("./src/data/filelist.json", JSON.stringify(item), {
 			encoding: "utf-8",
 			flag: "w",
 		});
@@ -43,7 +43,7 @@ router.post("/createGroup", json_parser, function (req, res) {
 		if (item[req.body.game.toString()] == undefined)
 			item[req.body.game.toString()] = [];
 		item[req.body.game.toString()].push(uuid + ".json");
-		fs.writeFileSync("./src/data/filelist.json", JSON.stringify(list), {
+		fs.writeFileSync("./src/data/filelist.json", JSON.stringify(item), {
 			encoding: "utf-8",
 			flag: "w",
 		});
