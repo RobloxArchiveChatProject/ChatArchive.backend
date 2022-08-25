@@ -40,9 +40,8 @@ router.post("/createGroup", json_parser, function (req, res) {
 				flag: "r",
 			})
 		);
-		if (item[req.body.game.toString()] == undefined)
-			item[req.body.game.toString()] = [];
-		item[req.body.game.toString()].push(uuid + ".json");
+		if (item[req.body.game] == undefined) item[req.body.game] = [];
+		item[req.body.game].push(uuid + ".json");
 		fs.writeFileSync("./src/data/gamelist.json", JSON.stringify(item), {
 			encoding: "utf-8",
 			flag: "w",
