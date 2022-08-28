@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { Router } from "express";
 import fs from "fs";
 import { commitFile } from "../git-actions.js";
+import { name, version, license } from "./pkg.js";
 var router = Router();
 
 router.get("/", function (req, res) {
@@ -86,6 +87,15 @@ router.post("/createGroup", json_parser, function (req, res) {
 			flag: "w",
 		});
 	}
+	var today = new Date();
+	var date =
+		today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+	var time =
+		today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	var dateTime = date + " " + time;
+
+	req.body["pkgversion"] = version;
+	req.body["date"] = dateTime;
 	fs.writeFileSync("./src/data/" + uuid + ".json", JSON.stringify(req.body), {
 		encoding: "utf-8",
 		flag: "w",

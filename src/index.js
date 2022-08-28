@@ -1,8 +1,7 @@
 import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const { name, version, author, license } = require("../package.json");
 import express from "express";
 import router from "./routers/archive.js";
+import { name, version, license } from "./pkg.js";
 
 var app = express();
 
