@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 import { Router } from "express";
 import fs from "fs";
 import { commitFile } from "../git-actions.js";
-import { name, version, license } from "./pkg.js";
+import { name, version, license } from "../pkg.js";
 var router = Router();
 
 router.get("/", function (req, res) {
