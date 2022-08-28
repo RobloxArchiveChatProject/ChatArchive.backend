@@ -10,7 +10,6 @@ const octokit = new Octokit({
 	auth: process.env.GITHUB_TOKEN,
 });
 
-console.log(process.env.GITHUB_TOKEN);
 const configs = {
 	owner: "rblxacp",
 	repo: "ChatArchive.backend",
