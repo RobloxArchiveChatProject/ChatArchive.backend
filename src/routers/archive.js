@@ -1,7 +1,8 @@
-import bodyParser from "body-parser";
+import bodyParser, { json } from "body-parser";
 import { randomUUID } from "crypto";
 import { Router } from "express";
-import fs, { rmSync } from "fs";
+import fs from "fs";
+import { commitFile } from "../git-actions";
 var router = Router();
 
 router.get("/", function (req, res) {
@@ -105,6 +106,15 @@ router.post("/addStream", json_parser, function (req, res) {
 			Success: true,
 		})
 	);
+});
+router.post("/push", json_parser, async function (req, res) {
+	let id = req.body.uuid;
+	commitFile(id + ".json");
+});
+router.post("/finish", json_parser, async function (req, res) {
+	commitFile("filelist.json");
+	commitFile("gamelist.json");
+	commitFile("ownerlist.json");
 });
 
 //export this router to use in our index.js
