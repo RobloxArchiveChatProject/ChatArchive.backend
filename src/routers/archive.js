@@ -1,8 +1,8 @@
-import bodyParser, { json } from "body-parser";
+import bodyParser from "body-parser";
 import { randomUUID } from "crypto";
 import { Router } from "express";
 import fs from "fs";
-import { commitFile } from "../git-actions";
+import { commitFile } from "../git-actions.js";
 var router = Router();
 
 router.get("/", function (req, res) {
