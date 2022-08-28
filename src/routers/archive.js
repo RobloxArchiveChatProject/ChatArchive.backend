@@ -21,6 +21,10 @@ router.post("/createGroup", json_parser, function (req, res) {
 		})
 	);
 	{
+		/**
+		 * Plain Array Taxo
+		 * ! Will be deprecated soon!
+		 */
 		let item = JSON.parse(
 			fs.readFileSync("./src/data/filelist.json", {
 				encoding: "utf-8",
@@ -34,6 +38,9 @@ router.post("/createGroup", json_parser, function (req, res) {
 		});
 	}
 	{
+		/**
+		 * Gameid based Taxo
+		 */
 		let item = JSON.parse(
 			fs.readFileSync("./src/data/gamelist.json", {
 				encoding: "utf-8",
@@ -43,6 +50,26 @@ router.post("/createGroup", json_parser, function (req, res) {
 		if (item[req.body.game] == undefined) item[req.body.game] = [];
 		item[req.body.game].push(uuid + ".json");
 		fs.writeFileSync("./src/data/gamelist.json", JSON.stringify(item), {
+			encoding: "utf-8",
+			flag: "w",
+		});
+	}
+	{
+		/**
+		 * Owner-based Taxo
+		 */
+		let item = JSON.parse(
+			fs.readFileSync("./src/data/ownerlist.json", {
+				encoding: "utf-8",
+				flag: "r",
+			})
+		);
+		item.push({
+			userId: req.body.owner.userId,
+			name: req.body.owner.name,
+			uuid: uuid + ".json",
+		});
+		fs.writeFileSync("./src/data/ownerlist.json", JSON.stringify(item), {
 			encoding: "utf-8",
 			flag: "w",
 		});
