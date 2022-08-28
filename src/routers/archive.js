@@ -64,11 +64,22 @@ router.post("/createGroup", json_parser, function (req, res) {
 				flag: "r",
 			})
 		);
-		item.push({
-			userId: req.body.owner.userId,
-			name: req.body.owner.name,
-			uuid: uuid + ".json",
+		let found = false;
+		item.forEach((v, i) => {
+			if (found) return;
+			if (v.userId === req.body.owner.userId) {
+				v.uuid.push(uuid + ".json");
+				found = true;
+				return;
+			}
 		});
+		if (!found) {
+			item.push({
+				userId: req.body.owner.userId,
+				name: req.body.owner.name,
+				uuid: [uuid + ".json"],
+			});
+		}
 		fs.writeFileSync("./src/data/ownerlist.json", JSON.stringify(item), {
 			encoding: "utf-8",
 			flag: "w",
