@@ -112,9 +112,9 @@ router.post("/push", json_parser, async function (req, res) {
 	commitFile(id + ".json");
 });
 router.post("/finish", json_parser, async function (req, res) {
-	commitFile("filelist.json");
-	commitFile("gamelist.json");
-	commitFile("ownerlist.json");
+	await commitFile("filelist.json");
+	await commitFile("gamelist.json");
+	await commitFile("ownerlist.json");
 });
 
 //export this router to use in our index.js
